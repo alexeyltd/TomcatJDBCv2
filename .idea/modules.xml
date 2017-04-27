@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TomcatJDBCv2.iml" filepath="$PROJECT_DIR$/TomcatJDBCv2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tomcat.iml" filepath="$PROJECT_DIR$/Tomcat.iml" />
     </modules>
   </component>
 </project>

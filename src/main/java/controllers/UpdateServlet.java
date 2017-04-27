@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.impl.UserDaoHibException;
-import dao.impl.UserDaoJDBCException;
+import dao.implementations.Exceptions.UserDaoHibException;
+import dao.implementations.Exceptions.UserDaoJDBCException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import services.userService.UserService;
-import services.userServiceImpl.UserServiceImpl;
+import java.util.List;
 
-/**
- * Created by alexeypavlenko on 22/04/2017.
- */
-@WebServlet(name = "UpdateServlet", urlPatterns = {"/update"})
+import model.User;
+import services.abstracts.userService.UserService;
+import services.implementations.userServiceImpl.UserServiceImpl;
+
+@WebServlet(name = "UpdateServlet", urlPatterns = {"/admin/update"})
 public class UpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -27,13 +27,16 @@ public class UpdateServlet extends HttpServlet {
         String name = request.getParameter("name");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+        String role = request.getParameter("role");
 
         try {
-            userService.getUserDAO().updateUser(id, name, login, password);
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
-        } catch (UserDaoJDBCException e) {
-            e.printStackTrace();
-        } catch (UserDaoHibException e) {
+            userService.updateUser(id, name, login, password, role);
+
+            List<User> x = userService.getUsers();
+            request.setAttribute("list", x);
+
+            request.getRequestDispatcher("/admin.jsp").forward(request, response);
+        } catch (UserDaoJDBCException | UserDaoHibException e) {
             e.printStackTrace();
         }
 

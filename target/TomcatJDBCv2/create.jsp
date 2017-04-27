@@ -12,10 +12,11 @@
 </head>
 <body>
 
-<form action="/create" method="POST">
+<form action="/admin/create" method="POST">
     Name: <input type="text" name="name"/>
     Login: <input type="text" name="login"/>
     Password: <input type="password" name="password"/>
+    Role: <input type="text" name="role"/>
     <input type="submit" value="Submit">
 </form>
 
